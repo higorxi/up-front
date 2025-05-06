@@ -82,7 +82,7 @@ export function WorkshopCard({
       </CardContent>
       <CardFooter className="p-4 pt-0 flex justify-between">
         <Button variant="outline" size="sm" asChild>
-          <Link href={`/dashboard/workshops/${encodeURIComponent(title.toLowerCase().replace(/\s+/g, "-"))}`}>
+          <Link href={`professional/workshops/${encodeURIComponent(title.toLowerCase().replace(/\s+/g, "-"))}`}>
             Ver Detalhes
           </Link>
         </Button>

@@ -344,7 +344,7 @@ export default function LoginPage() {
                       type="submit"
                       className="w-full transition-all duration-300 hover:shadow-lg hover:translate-y-[-2px]"
                       disabled={isLoginLoading}
-                      onClick={() => router.push("/dashboard")}
+                      onClick={() => router.push("professional/dashboard")}
                     >
                       {isLoginLoading ? "Entrando..." : "Entrar"}
                     </Button>

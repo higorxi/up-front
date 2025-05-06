@@ -3,14 +3,27 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { Home, Store, Heart, MessageSquare, Calendar, User, Settings, BookOpen, Gift, Users, Bell } from "lucide-react"
+import {
+  Home,
+  Package,
+  Tag,
+  Users,
+  Calendar,
+  MessageSquare,
+  BarChart,
+  Settings,
+  Store,
+  Bell,
+  Award,
+  FileText,
+} from "lucide-react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 
-interface DashboardNavProps {
+interface EnterpriseNavProps {
   collapsed: boolean
 }
 
-export function DashboardNav({ collapsed }: DashboardNavProps) {
+export function EnterpriseNav({ collapsed }: EnterpriseNavProps) {
   const pathname = usePathname()
 
   // Organize navigation items by sections
@@ -19,7 +32,7 @@ export function DashboardNav({ collapsed }: DashboardNavProps) {
       items: [
         {
           title: "Início",
-          href: "/dashboard",
+          href: "/enterprise/dashboard",
           icon: Home,
         },
       ],
@@ -27,51 +40,74 @@ export function DashboardNav({ collapsed }: DashboardNavProps) {
     {
       items: [
         {
+          title: "Produtos",
+          href: "/enterprise/dashboard/products",
+          icon: Package,
+        },
+        {
+          title: "Promoções",
+          href: "/enterprise/dashboard/promotions",
+          icon: Tag,
+        },
+        {
           title: "Profissionais",
-          href: "/dashboard/professionals",
+          href: "/enterprise/dashboard/professionals",
           icon: Users,
         },
-        {
-          title: "Lojas Parceiras",
-          href: "/dashboard/stores",
-          icon: Store,
-        },
+      ],
+    },
+    {
+      items: [
         {
           title: "Eventos",
-          href: "professional/dashboard/events",
+          href: "/enterprise/dashboard/events",
           icon: Calendar,
         },
         {
           title: "Workshops",
-          href: "/dashboard/workshops",
-          icon: BookOpen,
+          href: "/enterprise/dashboard/workshops",
+          icon: Award,
         },
       ],
     },
     {
       items: [
         {
-          title: "Meu Perfil",
-          href: "/dashboard/profile",
-          icon: User,
+          title: "Mensagens",
+          href: "/enterprise/dashboard/messages",
+          icon: MessageSquare,
         },
         {
-          title: "Favoritos",
-          href: "/dashboard/favorites",
-          icon: Heart,
-        },
-        {
-          title: "Benefícios",
-          href: "/dashboard/benefits",
-          icon: Gift,
+          title: "Notificações",
+          href: "/enterprise/dashboard/notifications",
+          icon: Bell,
         },
       ],
     },
     {
       items: [
+        {
+          title: "Analytics",
+          href: "/enterprise/dashboard/analytics",
+          icon: BarChart,
+        },
+        {
+          title: "Relatórios",
+          href: "/enterprise/dashboard/reports",
+          icon: FileText,
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          title: "Perfil da Loja",
+          href: "/enterprise/dashboard/profile",
+          icon: Store,
+        },
         {
           title: "Configurações",
-          href: "/dashboard/settings",
+          href: "/enterprise/dashboard/settings",
           icon: Settings,
         },
       ],
@@ -95,7 +131,7 @@ export function DashboardNav({ collapsed }: DashboardNavProps) {
                         href={item.href}
                         className={cn(
                           "flex h-10 w-10 items-center justify-center rounded-md transition-colors",
-                          isActive ? "bg-[#4A1F3D] text-white" : "text-gray-300 hover:bg-[#4A1F3D] hover:text-white",
+                          isActive ? "bg-[#2A4D5A] text-white" : "text-gray-300 hover:bg-[#2A4D5A] hover:text-white",
                         )}
                       >
                         <Icon className="h-5 w-5" />
@@ -106,7 +142,7 @@ export function DashboardNav({ collapsed }: DashboardNavProps) {
                   </Tooltip>
                 )
               })}
-              {sectionIndex < navSections.length - 1 && <div className="my-2 h-px w-8 bg-[#4A1F3D]"></div>}
+              {sectionIndex < navSections.length - 1 && <div className="my-2 h-px w-8 bg-[#2A4D5A]"></div>}
             </div>
           ))}
         </nav>
@@ -128,7 +164,7 @@ export function DashboardNav({ collapsed }: DashboardNavProps) {
                 href={item.href}
                 className={cn(
                   "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
-                  isActive ? "bg-[#4A1F3D] text-white" : "text-gray-300 hover:bg-[#4A1F3D] hover:text-white",
+                  isActive ? "bg-[#2A4D5A] text-white" : "text-gray-300 hover:bg-[#2A4D5A] hover:text-white",
                 )}
               >
                 <Icon className="h-5 w-5" />
@@ -136,7 +172,7 @@ export function DashboardNav({ collapsed }: DashboardNavProps) {
               </Link>
             )
           })}
-          {sectionIndex < navSections.length - 1 && <div className="my-2 h-px w-full bg-[#4A1F3D]"></div>}
+          {sectionIndex < navSections.length - 1 && <div className="my-2 h-px w-full bg-[#2A4D5A]"></div>}
         </div>
       ))}
     </nav>
