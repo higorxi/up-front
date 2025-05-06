@@ -5,7 +5,7 @@ import { useState } from "react"
 import { DashboardNav } from "@/components/dashboard-nav"
 import { UserNav } from "@/components/user-nav"
 import { Button } from "@/components/ui/button"
-import { ChevronRight, Menu } from "lucide-react"
+import { ChevronLeft, ChevronRight, Menu } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface DashboardLayoutProps {
@@ -43,7 +43,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           onClick={() => setSidebarOpen(!sidebarOpen)}
           className="absolute -right-3 top-20 hidden h-6 w-6 rounded-full border border-[#4A1F3D] bg-[#3A0F2D] text-white md:flex"
         >
-          <ChevronRight className={cn("h-4 w-4 transition-transform", !sidebarOpen && "rotate-180")} />
+          <ChevronLeft className={cn("h-4 w-4 transition-transform", !sidebarOpen && "rotate-180")} />
         </Button>
       </aside>
 

@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { cn } from "@/lib/utils"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 import {
   Home,
   Package,
@@ -16,15 +16,20 @@ import {
   Bell,
   Award,
   FileText,
-} from "lucide-react"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+} from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface EnterpriseNavProps {
-  collapsed: boolean
+  collapsed: boolean;
 }
 
 export function EnterpriseNav({ collapsed }: EnterpriseNavProps) {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   // Organize navigation items by sections
   const navSections = [
@@ -43,11 +48,6 @@ export function EnterpriseNav({ collapsed }: EnterpriseNavProps) {
           title: "Produtos",
           href: "/enterprise/dashboard/products",
           icon: Package,
-        },
-        {
-          title: "Promoções",
-          href: "/enterprise/dashboard/promotions",
-          icon: Tag,
         },
         {
           title: "Profissionais",
@@ -72,11 +72,6 @@ export function EnterpriseNav({ collapsed }: EnterpriseNavProps) {
     },
     {
       items: [
-        {
-          title: "Mensagens",
-          href: "/enterprise/dashboard/messages",
-          icon: MessageSquare,
-        },
         {
           title: "Notificações",
           href: "/enterprise/dashboard/notifications",
@@ -112,17 +107,20 @@ export function EnterpriseNav({ collapsed }: EnterpriseNavProps) {
         },
       ],
     },
-  ]
+  ];
 
   if (collapsed) {
     return (
       <TooltipProvider delayDuration={0}>
-        <nav className="flex flex-col items-center gap-6 px-2 py-4">
+        <nav className="flex flex-col items-center gap-4 px-2 py-4 h-full overflow-y-auto scrollbar-hide">
           {navSections.map((section, sectionIndex) => (
-            <div key={sectionIndex} className="flex w-full flex-col items-center gap-2">
+            <div
+              key={sectionIndex}
+              className="flex w-full flex-col items-center gap-1"
+            >
               {section.items.map((item, index) => {
-                const Icon = item.icon
-                const isActive = pathname === item.href
+                const Icon = item.icon;
+                const isActive = pathname === item.href;
 
                 return (
                   <Tooltip key={index}>
@@ -130,33 +128,37 @@ export function EnterpriseNav({ collapsed }: EnterpriseNavProps) {
                       <Link
                         href={item.href}
                         className={cn(
-                          "flex h-10 w-10 items-center justify-center rounded-md transition-colors",
-                          isActive ? "bg-[#2A4D5A] text-white" : "text-gray-300 hover:bg-[#2A4D5A] hover:text-white",
+                          "flex h-9 w-9 items-center justify-center rounded-md transition-colors",
+                          isActive
+                            ? "bg-[#2A4D5A] text-white"
+                            : "text-gray-300 hover:bg-[#2A4D5A] hover:text-white"
                         )}
                       >
-                        <Icon className="h-5 w-5" />
+                        <Icon className="h-4 w-4" />
                         <span className="sr-only">{item.title}</span>
                       </Link>
                     </TooltipTrigger>
                     <TooltipContent side="right">{item.title}</TooltipContent>
                   </Tooltip>
-                )
+                );
               })}
-              {sectionIndex < navSections.length - 1 && <div className="my-2 h-px w-8 bg-[#2A4D5A]"></div>}
+              {sectionIndex < navSections.length - 1 && (
+                <div className="my-1 h-px w-6 bg-[#2A4D5A]"></div>
+              )}
             </div>
           ))}
         </nav>
       </TooltipProvider>
-    )
+    );
   }
 
   return (
-    <nav className="flex flex-col gap-6 px-3 py-4">
+    <nav className="flex flex-col gap-4 px-3 py-4 h-full overflow-y-auto">
       {navSections.map((section, sectionIndex) => (
         <div key={sectionIndex} className="flex flex-col gap-1">
           {section.items.map((item, index) => {
-            const Icon = item.icon
-            const isActive = pathname === item.href
+            const Icon = item.icon;
+            const isActive = pathname === item.href;
 
             return (
               <Link
@@ -164,17 +166,21 @@ export function EnterpriseNav({ collapsed }: EnterpriseNavProps) {
                 href={item.href}
                 className={cn(
                   "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
-                  isActive ? "bg-[#2A4D5A] text-white" : "text-gray-300 hover:bg-[#2A4D5A] hover:text-white",
+                  isActive
+                    ? "bg-[#2A4D5A] text-white"
+                    : "text-gray-300 hover:bg-[#2A4D5A] hover:text-white"
                 )}
               >
                 <Icon className="h-5 w-5" />
                 <span>{item.title}</span>
               </Link>
-            )
+            );
           })}
-          {sectionIndex < navSections.length - 1 && <div className="my-2 h-px w-full bg-[#2A4D5A]"></div>}
+          {sectionIndex < navSections.length - 1 && (
+            <div className="my-1 h-px w-full bg-[#2A4D5A]"></div>
+          )}
         </div>
       ))}
     </nav>
-  )
+  );
 }

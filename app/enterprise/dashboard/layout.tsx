@@ -5,7 +5,7 @@ import { useState } from "react"
 import { EnterpriseNav } from "@/components/enterprise-nav"
 import { EnterpriseUserNav } from "@/components/enterprise-user-nav"
 import { Button } from "@/components/ui/button"
-import { ChevronRight, Menu } from "lucide-react"
+import { ChevronLeft, ChevronRight, Menu } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface EnterpriseDashboardLayoutProps {
@@ -43,7 +43,7 @@ export default function EnterpriseDashboardLayout({ children }: EnterpriseDashbo
           onClick={() => setSidebarOpen(!sidebarOpen)}
           className="absolute -right-3 top-20 hidden h-6 w-6 rounded-full border border-[#2A4D5A] bg-[#1F3D4A] text-white md:flex"
         >
-          <ChevronRight className={cn("h-4 w-4 transition-transform", !sidebarOpen && "rotate-180")} />
+          <ChevronLeft className={cn("h-4 w-4 transition-transform", !sidebarOpen && "rotate-180")} />
         </Button>
       </aside>
 
