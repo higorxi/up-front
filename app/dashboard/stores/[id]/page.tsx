@@ -22,7 +22,7 @@ import Link from "next/link"
 import Image from "next/image"
 
 export default function StoreDetailPage({ params }: { params: { id: string } }) {
-  // Mock data for store details
+
   const store = {
     id: params.id,
     name: "Móveis Elegance",
@@ -31,7 +31,6 @@ export default function StoreDetailPage({ params }: { params: { id: string } }) 
       "Móveis de alta qualidade para sua casa ou escritório. Trabalhamos com as melhores madeiras e acabamentos premium para garantir durabilidade e beleza em cada peça. Nossa equipe de designers está pronta para ajudar você a encontrar as melhores soluções para seu espaço.",
     discount: "10% de desconto para membros UP",
     rating: 4.8,
-    reviews: 124,
     location: "Av. Paulista, 1000 - São Paulo, SP",
     phone: "(11) 3456-7890",
     website: "www.moveiselegance.com.br",
@@ -164,7 +163,7 @@ export default function StoreDetailPage({ params }: { params: { id: string } }) 
                 <div className="flex items-center gap-1 text-white">
                   <Star className="h-4 w-4 fill-[#F9B000] text-[#F9B000]" />
                   <span>{store.rating}</span>
-                  <span className="text-sm">({store.reviews} avaliações)</span>
+                  <span className="text-sm">({store.reviews.length} avaliações)</span>
                 </div>
               </div>
             </div>
@@ -288,13 +287,6 @@ export default function StoreDetailPage({ params }: { params: { id: string } }) 
             <Calendar className="h-4 w-4 mr-2" />
             Eventos
           </TabsTrigger>
-          <TabsTrigger
-            value="professionals"
-            className="rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-[#9A3B72] data-[state=active]:bg-transparent"
-          >
-            <Users className="h-4 w-4 mr-2" />
-            Profissionais
-          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="products" className="mt-6">
@@ -361,47 +353,6 @@ export default function StoreDetailPage({ params }: { params: { id: string } }) 
                     </div>
                     <Button className="bg-[#9A3B72] hover:bg-[#7A2D5A] md:self-center">Participar</Button>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </TabsContent>
-
-        <TabsContent value="professionals" className="mt-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold">Profissionais que Recomendam</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {store.reviews.map((review) => (
-              <Card key={review.id}>
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-3">
-                    <div className="relative h-12 w-12 rounded-full overflow-hidden">
-                      <Image
-                        src={review.imageUrl || "/placeholder.svg"}
-                        alt={review.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div>
-                      <h3 className="font-medium">{review.name}</h3>
-                      <p className="text-sm text-muted-foreground">{review.profession}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1 mt-2">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`h-4 w-4 ${
-                          i < review.rating ? "fill-[#F9B000] text-[#F9B000]" : "fill-gray-200 text-gray-200"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                  <Button variant="link" className="h-auto p-0 text-xs text-[#9A3B72] mt-2">
-                    Ver perfil
-                  </Button>
                 </CardContent>
               </Card>
             ))}

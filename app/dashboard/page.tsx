@@ -189,6 +189,7 @@ export default function DashboardPage() {
         <TabsContent value="lojas" className="mt-6">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             <StoreCard
+              id={3}
               name="Móveis Elegance"
               category="Móveis"
               description="Móveis de alta qualidade para sua casa ou escritório."
@@ -196,6 +197,7 @@ export default function DashboardPage() {
               imageUrl="/placeholder.svg?height=100&width=200"
             />
             <StoreCard
+              id={2}
               name="Iluminação Moderna"
               category="Iluminação"
               description="Soluções de iluminação para todos os ambientes."
@@ -203,6 +205,7 @@ export default function DashboardPage() {
               imageUrl="/placeholder.svg?height=100&width=200"
             />
             <StoreCard
+              id={1}
               name="Decoração & Arte"
               category="Decoração"
               description="Objetos de decoração e arte para personalizar seu espaço."

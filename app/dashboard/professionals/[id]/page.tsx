@@ -31,8 +31,6 @@ export default function ProfessionalDetailPage({ params }: { params: { id: strin
     description:
       "Arquiteta especializada em projetos residenciais com foco em sustentabilidade. Com mais de 10 anos de experiência no mercado, desenvolvo projetos que combinam estética, funcionalidade e respeito ao meio ambiente. Formada pela Universidade de São Paulo, com especialização em Arquitetura Sustentável pela Universidade de Barcelona.",
     rating: 4.9,
-    reviews: 45,
-    projects: 38,
     level: "Ouro",
     location: "São Paulo, SP",
     phone: "(11) 98765-4321",
@@ -181,7 +179,6 @@ export default function ProfessionalDetailPage({ params }: { params: { id: strin
                 <div className="flex items-center gap-1 text-white">
                   <Star className="h-4 w-4 fill-[#F9B000] text-[#F9B000]" />
                   <span>{professional.rating}</span>
-                  <span className="text-sm">({professional.reviews} avaliações)</span>
                 </div>
               </div>
             </div>
@@ -229,7 +226,7 @@ export default function ProfessionalDetailPage({ params }: { params: { id: strin
                     className="bg-[#9A3B72]/10 text-[#9A3B72] border-[#9A3B72]/30 flex items-center gap-1"
                   >
                     <Briefcase className="h-4 w-4" />
-                    {professional.projects} projetos
+                    {professional.projects.length} projetos
                   </Badge>
                 </div>
 

@@ -6,6 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 interface StoreCardProps {
+  id: number;
   name: string
   category: string
   description: string
@@ -18,6 +19,7 @@ interface StoreCardProps {
 }
 
 export function StoreCard({
+  id,
   name,
   category,
   description,
@@ -69,7 +71,7 @@ export function StoreCard({
       </CardContent>
       <CardFooter className="p-4 pt-0 flex justify-between">
         <Button variant="outline" size="sm" asChild>
-          <Link href={`/dashboard/stores/${encodeURIComponent(name.toLowerCase().replace(/\s+/g, "-"))}`}>
+          <Link href={`/dashboard/stores/${id}`}>
             Ver Detalhes
           </Link>
         </Button>

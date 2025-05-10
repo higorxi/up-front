@@ -205,13 +205,11 @@ export default function ProfessionalsPage() {
         {professionals.map((professional) => (
           <ProfessionalCard
             key={professional.id}
+            id={professional.id}
             name={professional.name}
             profession={professional.profession}
             description={professional.description}
             location={professional.location}
-            rating={professional.rating}
-            projects={professional.projects}
-            level={professional.level}
             imageUrl={professional.imageUrl}
             featured={professional.featured}
             verified={professional.verified}

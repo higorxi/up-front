@@ -26,7 +26,7 @@ export default function EnterpriseDashboardLayout({ children }: EnterpriseDashbo
       >
         {/* Logo area */}
         <div className="flex h-16 items-center justify-center border-b border-[#2A4D5A]">
-          <div className="flex h-10 w-10 items-center justify-center rounded-md bg-[#F9B000] font-bold text-[#1F3D4A]">
+          <div className="flex h-10 w-10 items-center justify-center rounded-md bg-[#F8A22F] font-bold text-[#1F3D4A]">
             UP
           </div>
         </div>
@@ -63,7 +63,7 @@ export default function EnterpriseDashboardLayout({ children }: EnterpriseDashbo
               <span className="sr-only">Toggle menu</span>
             </Button>
             <div className="font-bold md:hidden">
-              <span className="text-[#F9B000]">UP</span> Parceiros
+              <span className="text-[#F8A22F]">UP</span> Parceiros
             </div>
           </div>
           <EnterpriseUserNav />

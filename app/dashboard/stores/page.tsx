@@ -199,6 +199,7 @@ export default function StoresPage() {
         {stores.map((store) => (
           <StoreCard
             key={store.id}
+            id={store.id}
             name={store.name}
             category={store.category}
             description={store.description}
