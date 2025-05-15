@@ -10,11 +10,11 @@ export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-6">
       {/* Welcome Card */}
-      <Card className="bg-white">
+      <Card className="">
         <CardContent className="p-6">
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex items-center gap-4">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#FFF5E6]">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full">
                 <LineChart className="h-8 w-8 text-[#F9B000]" />
               </div>
               <div>

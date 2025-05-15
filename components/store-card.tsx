@@ -1,21 +1,20 @@
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Heart, ExternalLink, MapPin, Star } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Heart, ExternalLink, MapPin, Star } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 interface StoreCardProps {
-  id: number;
-  name: string
-  category: string
-  description: string
-  discount: string
-  imageUrl: string
-  rating?: number
-  location?: string
-  featured?: boolean
-  new?: boolean
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+  imageUrl: string;
+  rating?: number;
+  location?: string;
+  featured?: boolean;
+  new?: boolean;
 }
 
 export function StoreCard({
@@ -23,20 +22,19 @@ export function StoreCard({
   name,
   category,
   description,
-  discount,
   imageUrl,
   rating = 0,
-  location = "",
+  location = '',
   featured = false,
   new: isNew = false,
 }: StoreCardProps) {
   return (
     <Card className="overflow-hidden transition-all hover:shadow-md">
       <div className="relative h-48">
-        <Image src={imageUrl || "/placeholder.svg"} alt={name} fill className="object-cover" />
-        <Badge className="absolute top-2 right-2 bg-[#9A3B72]">{discount}</Badge>
+        <Image src={imageUrl || '/placeholder.svg'} alt={name} fill className="object-cover" />
+        {/* <Badge className="absolute top-2 right-2 bg-[#9A3B72]">{discount}</Badge> */}
         {featured && <Badge className="absolute top-2 left-2 bg-[#F9B000] text-[#3A0F2D]">Destaque</Badge>}
-        {isNew && <Badge className="absolute top-2 left-2 bg-green-600">Novo</Badge>}
+        {/* {isNew && <Badge className="absolute top-2 left-2 bg-green-600">Novo</Badge>}
         <Button
           variant="ghost"
           size="icon"
@@ -44,7 +42,7 @@ export function StoreCard({
         >
           <Heart className="h-4 w-4" />
           <span className="sr-only">Adicionar aos favoritos</span>
-        </Button>
+        </Button> */}
       </div>
       <CardHeader className="p-4">
         <div className="flex justify-between items-start">
@@ -71,15 +69,16 @@ export function StoreCard({
       </CardContent>
       <CardFooter className="p-4 pt-0 flex justify-between">
         <Button variant="outline" size="sm" asChild>
-          <Link href={`/dashboard/stores/${id}`}>
-            Ver Detalhes
-          </Link>
+          <Link href={`/dashboard/stores/${id}`}>Ver Detalhes</Link>
         </Button>
-        <Button size="sm" className="gap-1 bg-[#9A3B72] hover:bg-[#7A2D5A]">
+        <Button
+          size="sm"
+          className=" transition-all duration-300 hover:shadow-lg hover:translate-y-[-2px]"
+        >
           <ExternalLink className="h-4 w-4" />
           Visitar
         </Button>
       </CardFooter>
     </Card>
-  )
+  );
 }

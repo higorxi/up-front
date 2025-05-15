@@ -7,6 +7,7 @@ import { UserNav } from "@/components/user-nav"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, Menu } from "lucide-react"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 
 interface DashboardLayoutProps {
   children: ReactNode
@@ -25,10 +26,10 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         )}
       >
         {/* Logo area */}
-        <div className="flex h-16 items-center justify-center border-b border-[#4A1F3D]">
-          <div className="flex h-10 w-10 items-center justify-center rounded-md bg-[#F9B000] font-bold text-[#3A0F2D]">
-            UP
-          </div>
+        <div className="flex h-24 items-center justify-center border-b border-[#4A1F3D]">
+                  <div className={sidebarOpen ? 'relative w-16 h-16' : 'relative w-10 h-10'}>
+              <Image src="/logo-up-completa.svg" alt="UP Club Logo" fill className="object-contain" priority />
+            </div>
         </div>
 
         {/* Navigation */}

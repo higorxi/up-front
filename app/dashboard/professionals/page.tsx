@@ -143,17 +143,17 @@ export default function ProfessionalsPage() {
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="outline" className="bg-white">
+            {/* <div className="flex flex-wrap gap-2">
+              <Badge variant="outline">
                 Todas as profissões ×
               </Badge>
-              <Badge variant="outline" className="bg-white">
+              <Badge variant="outline" >
                 Todas as localizações ×
               </Badge>
               <Button variant="link" className="h-auto p-0 text-xs text-[#9A3B72]">
                 Limpar filtros
               </Button>
-            </div>
+            </div> */}
           </div>
         </CardContent>
       </Card>
@@ -217,11 +217,11 @@ export default function ProfessionalsPage() {
         ))}
       </div>
 
-      <div className="flex justify-center mt-4">
-        <Button variant="outline" className="bg-white">
+      {/* <div className="flex justify-center mt-4">
+        <Button variant="outline">
           Carregar mais
         </Button>
-      </div>
+      </div> */}
     </div>
   )
 }

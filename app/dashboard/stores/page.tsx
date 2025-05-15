@@ -1,91 +1,33 @@
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { StoreCard } from "@/components/store-card"
-import { Search, Filter, ArrowUpDown } from "lucide-react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+"use client";
+
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { StoreCard } from '@/components/store-card';
+import { Search, Filter, ArrowUpDown } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Card, CardContent } from '@/components/ui/card';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function StoresPage() {
-  // Mock data for stores
-  const stores = [
-    {
-      id: 1,
-      name: "Móveis Elegance",
-      category: "Móveis",
-      description: "Móveis de alta qualidade para sua casa ou escritório.",
-      discount: "10% de desconto",
-      rating: 4.8,
-      location: "São Paulo, SP",
-      imageUrl: "/placeholder.svg?height=100&width=200",
-      featured: true,
-      new: false,
-    },
-    {
-      id: 2,
-      name: "Iluminação Moderna",
-      category: "Iluminação",
-      description: "Soluções de iluminação para todos os ambientes.",
-      discount: "15% de desconto",
-      rating: 4.5,
-      location: "Rio de Janeiro, RJ",
-      imageUrl: "/placeholder.svg?height=100&width=200",
-      featured: false,
-      new: true,
-    },
-    {
-      id: 3,
-      name: "Decoração & Arte",
-      category: "Decoração",
-      description: "Objetos de decoração e arte para personalizar seu espaço.",
-      discount: "5% de desconto",
-      rating: 4.2,
-      location: "Belo Horizonte, MG",
-      imageUrl: "/placeholder.svg?height=100&width=200",
-      featured: false,
-      new: true,
-    },
-    {
-      id: 4,
-      name: "Pisos Premium",
-      category: "Revestimentos",
-      description: "Pisos e revestimentos de alta qualidade.",
-      discount: "8% de desconto",
-      rating: 4.6,
-      location: "Curitiba, PR",
-      imageUrl: "/placeholder.svg?height=100&width=200",
-      featured: true,
-      new: false,
-    },
-    {
-      id: 5,
-      name: "Tintas Colorama",
-      category: "Tintas",
-      description: "Tintas de alta qualidade para todos os ambientes.",
-      discount: "12% de desconto",
-      rating: 4.3,
-      location: "São Paulo, SP",
-      imageUrl: "/placeholder.svg?height=100&width=200",
-      featured: false,
-      new: false,
-    },
-    {
-      id: 6,
-      name: "Tecidos & Cortinas",
-      category: "Tecidos",
-      description: "Tecidos e cortinas para todos os estilos.",
-      discount: "10% de desconto",
-      rating: 4.7,
-      location: "Brasília, DF",
-      imageUrl: "/placeholder.svg?height=100&width=200",
-      featured: false,
-      new: true,
-    },
-  ]
+const [partners, setPartners] = useState<PartnerSupplier[]>([]);
+
+  useEffect(() => {
+    const fetchPartners = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/api/partner-supplier');
+        setPartners(response.data); // Supondo que a API retorna um array de partners
+      } catch (error) {
+        console.error('Erro ao buscar parceiros:', error);
+      }
+    };
+
+    fetchPartners();
+  }, []);
 
   // Categories for filter
-  const categories = ["Todas", "Móveis", "Iluminação", "Decoração", "Revestimentos", "Tintas", "Tecidos"]
+  const categories = ['Todas', 'Móveis', 'Iluminação', 'Decoração', 'Revestimentos', 'Tintas', 'Tecidos'];
 
   return (
     <div className="flex flex-col gap-6">
@@ -133,11 +75,11 @@ export default function StoresPage() {
                 <Button variant="outline" size="icon">
                   <Filter className="h-4 w-4" />
                 </Button>
-                <Button className="bg-[#9A3B72] hover:bg-[#7A2D5A]">Buscar</Button>
+                <Button className="bg-primary">Buscar</Button>
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-2">
+            {/* <div className="flex flex-wrap gap-2">
               <Badge variant="outline" className="bg-white">
                 Todas as categorias ×
               </Badge>
@@ -147,7 +89,7 @@ export default function StoresPage() {
               <Button variant="link" className="h-auto p-0 text-xs text-[#9A3B72]">
                 Limpar filtros
               </Button>
-            </div>
+            </div> */}
           </div>
         </CardContent>
       </Card>
@@ -157,19 +99,19 @@ export default function StoresPage() {
           <TabsList className="bg-transparent p-0 h-9">
             <TabsTrigger
               value="all"
-              className="rounded-md data-[state=active]:bg-[#9A3B72] data-[state=active]:text-white"
+              className="rounded-md data-[state=active]:bg-primary data-[state=active]:text-white"
             >
               Todas
             </TabsTrigger>
             <TabsTrigger
               value="featured"
-              className="rounded-md data-[state=active]:bg-[#9A3B72] data-[state=active]:text-white"
+              className="rounded-md data-[state=active]:bg-primary data-[state=active]:text-white"
             >
               Destaque
             </TabsTrigger>
             <TabsTrigger
               value="new"
-              className="rounded-md data-[state=active]:bg-[#9A3B72] data-[state=active]:text-white"
+              className="rounded-md data-[state=active]:bg-primary data-[state=active]:text-white"
             >
               Novas
             </TabsTrigger>
@@ -196,28 +138,27 @@ export default function StoresPage() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {stores.map((store) => (
+        {partners.map((partner) => (
           <StoreCard
-            key={store.id}
-            id={store.id}
-            name={store.name}
-            category={store.category}
-            description={store.description}
-            discount={store.discount}
-            imageUrl={store.imageUrl}
-            rating={store.rating}
-            location={store.location}
-            featured={store.featured}
-            new={store.new}
+            key={partner.id}
+            id={partner.id}
+            name={partner.tradeName}
+            category="Parceiro"
+            description={partner.companyName || ''}
+            imageUrl={partner.profileImage || ''}
+            rating={5}
+            location={`${partner?.store?.address.city}, ${partner?.store?.address.state}` || 'Local não informado'}
+            featured={true}
+            new={false}
           />
         ))}
       </div>
 
-      <div className="flex justify-center mt-4">
+      {/* <div className="flex justify-center mt-4">
         <Button variant="outline" className="bg-white">
           Carregar mais
         </Button>
-      </div>
+      </div> */}
     </div>
-  )
+  );
 }
