@@ -7,4 +7,5 @@ export interface ProfessionalCardProps {
     imageUrl: string;
     featured?: boolean;
     verified?: boolean;
+    address?: any;
   }

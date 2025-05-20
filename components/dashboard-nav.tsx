@@ -167,7 +167,7 @@ export function DashboardNav({ collapsed, userName = "João Silva", userImage }:
                   href={item.href}
                   className={cn(
                     "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
-                    isActive ? "bg-[#4A1F3D] text-white" : "text-gray-300 hover:bg-[#4A1F3D] hover:text-white",
+                    isActive ? "bg-primary text-white" : "text-gray-300 hover:bg-[#4A1F3D] hover:text-white",
                   )}
                 >
                   <Icon className="h-5 w-5" />

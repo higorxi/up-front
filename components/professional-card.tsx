@@ -72,7 +72,7 @@ export function ProfessionalCard({
           featured={featured}
           verified={verified}
         />
-        <Button size="sm" className="gap-1 bg-[#9A3B72] hover:bg-[#7A2D5A]">
+        <Button size="sm" className="gap-1 bg-primary">
           <MessageSquare className="h-4 w-4" />
           Contatar
         </Button>

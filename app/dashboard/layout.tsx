@@ -26,7 +26,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         )}
       >
         {/* Logo area */}
-        <div className="flex h-24 items-center justify-center border-b border-[#4A1F3D]">
+        <div className="flex h-24 items-center  justify-center border-b border-[#4A1F3D]">
                   <div className={sidebarOpen ? 'relative w-16 h-16' : 'relative w-10 h-10'}>
               <Image src="/logo-up-completa.svg" alt="UP Club Logo" fill className="object-contain" priority />
             </div>

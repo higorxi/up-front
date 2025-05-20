@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Search, Filter, ArrowUpDown } from "lucide-react"
@@ -6,89 +8,25 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ProfessionalCard } from "@/components/professional-card"
+import { useEffect, useState } from "react"
+import axios from "axios"
+import { ProfessionalCardProps } from "@/types/Professional/ProfessionalCardProps"
 
 export default function ProfessionalsPage() {
-  // Mock data for professionals
-  const professionals = [
-    {
-      id: 1,
-      name: "Ana Oliveira",
-      profession: "Arquiteta",
-      description: "Especialista em projetos residenciais com foco em sustentabilidade.",
-      location: "São Paulo, SP",
-      rating: 4.9,
-      projects: 45,
-      level: "Ouro",
-      imageUrl: "/placeholder.svg?height=100&width=100",
-      featured: true,
-      verified: true,
-    },
-    {
-      id: 2,
-      name: "Carlos Santos",
-      profession: "Designer de Interiores",
-      description: "Criação de ambientes modernos e funcionais para residências e escritórios.",
-      location: "Rio de Janeiro, RJ",
-      rating: 4.7,
-      projects: 38,
-      level: "Prata",
-      imageUrl: "/placeholder.svg?height=100&width=100",
-      featured: false,
-      verified: true,
-    },
-    {
-      id: 3,
-      name: "Mariana Costa",
-      profession: "Decoradora",
-      description: "Transformação de ambientes com foco em conforto e personalidade.",
-      location: "Belo Horizonte, MG",
-      rating: 4.8,
-      projects: 52,
-      level: "Ouro",
-      imageUrl: "/placeholder.svg?height=100&width=100",
-      featured: true,
-      verified: true,
-    },
-    {
-      id: 4,
-      name: "Pedro Mendes",
-      profession: "Arquiteto",
-      description: "Projetos comerciais e residenciais com ênfase em iluminação natural.",
-      location: "Curitiba, PR",
-      rating: 4.6,
-      projects: 29,
-      level: "Prata",
-      imageUrl: "/placeholder.svg?height=100&width=100",
-      featured: false,
-      verified: true,
-    },
-    {
-      id: 5,
-      name: "Juliana Alves",
-      profession: "Designer de Interiores",
-      description: "Especialista em ambientes pequenos e otimização de espaços.",
-      location: "São Paulo, SP",
-      rating: 4.9,
-      projects: 41,
-      level: "Ouro",
-      imageUrl: "/placeholder.svg?height=100&width=100",
-      featured: true,
-      verified: true,
-    },
-    {
-      id: 6,
-      name: "Roberto Silva",
-      profession: "Fotógrafo de Interiores",
-      description: "Fotografia profissional para projetos de arquitetura e decoração.",
-      location: "Brasília, DF",
-      rating: 4.7,
-      projects: 63,
-      level: "Prata",
-      imageUrl: "/placeholder.svg?height=100&width=100",
-      featured: false,
-      verified: true,
-    },
-  ]
+const [professionals, setProfessionals] = useState<ProfessionalCardProps[]>([]);
+
+  useEffect(() => {
+    const fetchPartners = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/api/recommended-professional');
+        setProfessionals(response.data);
+      } catch (error) {
+        console.error('Erro ao buscar parceiros:', error);
+      }
+    };
+
+    fetchPartners();
+  }, []);
 
   // Professions for filter
   const professions = ["Todas", "Arquiteto", "Designer de Interiores", "Decorador", "Fotógrafo", "Paisagista"]
@@ -163,19 +101,19 @@ export default function ProfessionalsPage() {
           <TabsList className="bg-transparent p-0 h-9">
             <TabsTrigger
               value="all"
-              className="rounded-md data-[state=active]:bg-[#9A3B72] data-[state=active]:text-white"
+              className="rounded-md data-[state=active]:bg-primary data-[state=active]:text-white"
             >
               Todos
             </TabsTrigger>
             <TabsTrigger
               value="featured"
-              className="rounded-md data-[state=active]:bg-[#9A3B72] data-[state=active]:text-white"
+              className="rounded-md data-[state=active]:bg-primary data-[state=active]:text-white"
             >
               Destaque
             </TabsTrigger>
             <TabsTrigger
               value="verified"
-              className="rounded-md data-[state=active]:bg-[#9A3B72] data-[state=active]:text-white"
+              className="rounded-md data-[state=active]:bg-primary data-[state=active]:text-white"
             >
               Verificados
             </TabsTrigger>
@@ -209,7 +147,7 @@ export default function ProfessionalsPage() {
             name={professional.name}
             profession={professional.profession}
             description={professional.description}
-            location={professional.location}
+            location={`${professional?.address.city}, ${professional?.address.state}` || 'Local não informado'}
             imageUrl={professional.imageUrl}
             featured={professional.featured}
             verified={professional.verified}

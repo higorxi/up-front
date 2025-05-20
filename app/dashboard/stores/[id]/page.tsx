@@ -22,16 +22,17 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import axios from 'axios';
 
-export default function StoreDetailPage({ params }: { params: { id: string } }) {
+export default function StoreDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const [partner, setPartner] = useState<PartnerSupplier>();
 
   useEffect(() => {
     const fetchPartners = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/partner-supplier/${params.id}`);
+        const response = await axios.get(`http://localhost:8080/api/partner-supplier/${id}`);
         setPartner(response.data); // Supondo que a API retorna um array de partners
       } catch (error) {
         console.error('Erro ao buscar parceiros:', error);
@@ -73,7 +74,7 @@ export default function StoreDetailPage({ params }: { params: { id: string } }) 
                 <Badge className="bg-[#F9B000] text-[#3A0F2D]">Categoria</Badge>
                 <div className="flex items-center gap-1 text-white">
                   <Star className="h-4 w-4 fill-[#F9B000] text-[#F9B000]" />
-                  <span>0</span>
+                  <span>5</span>
                   <span className="text-sm">(0 avaliações)</span>
                 </div>
               </div>
@@ -158,16 +159,17 @@ export default function StoreDetailPage({ params }: { params: { id: string } }) 
             <CardContent className="p-6">
               <h2 className="text-xl font-semibold mb-4">Galeria</h2>
               <div className="grid grid-cols-2 gap-2">
-                {/* {store.gallery.map((image, index) => (
-                  <div key={index} className="relative aspect-square rounded-md overflow-hidden">
-                    <Image
-                      src={image || "/placeholder.svg"}
-                      alt={`Galeria ${index + 1}`}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                ))} */}
+                {(() => {
+                  const elements = [];
+                  for (let i = 0; i < 4; i++) {
+                    elements.push(
+                      <div key={i} className="relative aspect-square rounded-md overflow-hidden">
+                        <Image src={'/placeholder.svg'} alt={`Galeria ${i + 1}`} fill className="object-cover" />
+                      </div>
+                    );
+                  }
+                  return elements;
+                })()}
               </div>
               <Button variant="outline" className="w-full mt-4">
                 Ver todas as fotos
@@ -178,7 +180,7 @@ export default function StoreDetailPage({ params }: { params: { id: string } }) 
       </div>
 
       {/* Tabs */}
-      <Tabs defaultValue="products" className="w-full">
+      {/* <Tabs defaultValue="products" className="w-full">
         <TabsList className="bg-transparent p-0 h-10 border-b">
           <TabsTrigger
             value="products"
@@ -209,7 +211,7 @@ export default function StoreDetailPage({ params }: { params: { id: string } }) 
             <Button variant="outline">Ver todos</Button>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {/* {store.products.map((product) => (
+             {store.products.map((product) => (
               <ProductCard
                 key={product.id}
                 name={product.name}
@@ -219,7 +221,7 @@ export default function StoreDetailPage({ params }: { params: { id: string } }) 
                 imageUrl={product.imageUrl}
                 featured={product.featured}
               />
-            ))} */}
+            ))} 
           </div>
         </TabsContent>
 
@@ -229,7 +231,7 @@ export default function StoreDetailPage({ params }: { params: { id: string } }) 
             <Button>Avaliar</Button>
           </div>
           <div className="space-y-4">
-            {/* {store.reviews.map((review) => (
+            {store.reviews.map((review) => (
               <ReviewCard
                 key={review.id}
                 name={review.name}
@@ -239,7 +241,7 @@ export default function StoreDetailPage({ params }: { params: { id: string } }) 
                 comment={review.comment}
                 imageUrl={review.imageUrl}
               />
-            ))} */}
+            ))}
           </div>
           <div className="flex justify-center mt-6">
             <Button variant="outline">Ver todas as avaliações</Button>
@@ -251,7 +253,7 @@ export default function StoreDetailPage({ params }: { params: { id: string } }) 
             <h2 className="text-xl font-semibold">Próximos Eventos</h2>
           </div>
           <div className="space-y-4">
-            {/* {store.events.map((event) => (
+            {store.events.map((event) => (
               <Card key={event.id}>
                 <CardContent className="p-4">
                   <div className="flex flex-col md:flex-row gap-4">
@@ -269,10 +271,10 @@ export default function StoreDetailPage({ params }: { params: { id: string } }) 
                   </div>
                 </CardContent>
               </Card>
-            ))} */}
+            ))}
           </div>
         </TabsContent>
-      </Tabs>
+      </Tabs> */}
     </div>
   );
 }

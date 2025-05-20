@@ -24,7 +24,7 @@ export default function ProfessionalModal({
       reviewCount: 126,
       availability: "Disponível em 1-2 dias úteis",
       experience: "8 anos de experiência",
-      education: "Formação completa em " + profession.split(" ")[0],
+      education: "Formação completa em ",
       socialMedia: {
         linkedin: "https://linkedin.com/in/profissional",
         instagram: "https://instagram.com/profissional",
@@ -53,13 +53,13 @@ export default function ProfessionalModal({
           <Button 
             variant="ghost" 
             size="icon" 
-            className="absolute right-4 top-4 z-10 bg-white shadow-md hover:bg-gray-100 rounded-full transition-all duration-200"
+            className="absolute right-4 top-4 z-10 shadow-md hover:bg-gray-100 rounded-full transition-all duration-200"
             onClick={() => setOpen(false)}
           >
             <X className="h-5 w-5" />
           </Button>
           
-          <DialogHeader className="p-6 sm:p-8 bg-gradient-to-r from-[#9A3B72]/10 to-white">
+          <DialogHeader className="p-6 sm:p-8 ">
             <div className="flex flex-col md:flex-row gap-6 mb-4">
               <div className="relative h-40 w-40 rounded-full overflow-hidden border-4 border-[#9A3B72] flex-shrink-0 mx-auto md:mx-0">
                 <img src={imageUrl || "/placeholder.svg"} alt={name} className="object-cover h-full w-full" />
