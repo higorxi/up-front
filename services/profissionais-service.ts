@@ -148,14 +148,10 @@ const mockProfissionais: Profissional[] = [
 
 // Serviço para gerenciar profissionais
 class ProfissionaisService {
-  // Listar todos os profissionais
   async listarProfissionais(): Promise<Profissional[]> {
     try {
-      // Quando a API estiver pronta, descomente o código abaixo
-      // return await apiClient.get<Profissional[]>('/profissionais');
-
-      // Usando dados mockados para desenvolvimento
-      return mockProfissionais
+      const response = await apiClient.get<Profissional[]>('/profissionais');
+      return response
     } catch (error) {
       console.error("Erro ao listar profissionais:", error)
       throw error

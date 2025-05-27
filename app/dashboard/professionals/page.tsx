@@ -1,42 +1,58 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Search, Filter, ArrowUpDown } from "lucide-react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ProfessionalCard } from "@/components/professional-card"
-import { useEffect, useState } from "react"
-import axios from "axios"
-import { ProfessionalCardProps } from "@/types/Professional/ProfessionalCardProps"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Search, Filter, ArrowUpDown } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ProfessionalCard } from "@/components/professional-card";
+import { useEffect, useState } from "react";
+import { profissionaisIndicadosService } from "@/services/profissionais-indicados-service";
+import FallbackMessage from "@/components/fallback-loading";
 
 export default function ProfessionalsPage() {
-const [professionals, setProfessionals] = useState<ProfessionalCardProps[]>([]);
+  const [professionals, setProfessionals] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchPartners = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/recommended-professional');
-        setProfessionals(response.data);
+        const data =
+          await profissionaisIndicadosService.listarProfissionaisIndicados();
+        setProfessionals(data);
       } catch (error) {
-        console.error('Erro ao buscar parceiros:', error);
+        console.error("Erro ao buscar parceiros:", error);
       }
     };
 
     fetchPartners();
   }, []);
 
-  // Professions for filter
-  const professions = ["Todas", "Arquiteto", "Designer de Interiores", "Decorador", "Fotógrafo", "Paisagista"]
+  // Buscar via API
+  const professions = [
+    "Todas",
+    "Arquiteto",
+    "Designer de Interiores",
+    "Decorador",
+    "Fotógrafo",
+    "Paisagista",
+  ];
 
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold tracking-tight">Profissionais Indicados</h1>
+        <h1 className="text-3xl font-bold tracking-tight">
+          Profissionais Indicados
+        </h1>
         <p className="text-muted-foreground">
-          Encontre os melhores profissionais recomendados pelo Clube de Negócios UP.
+          Encontre os melhores profissionais recomendados pelo Clube de Negócios
+          UP.
         </p>
       </div>
 
@@ -46,7 +62,11 @@ const [professionals, setProfessionals] = useState<ProfessionalCardProps[]>([]);
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <div className="relative flex-1 w-full">
                 <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input type="search" placeholder="Buscar profissionais..." className="w-full pl-8" />
+                <Input
+                  type="search"
+                  placeholder="Buscar profissionais..."
+                  className="w-full pl-8"
+                />
               </div>
               <div className="flex items-center gap-2 w-full sm:w-auto">
                 <Select>
@@ -55,7 +75,10 @@ const [professionals, setProfessionals] = useState<ProfessionalCardProps[]>([]);
                   </SelectTrigger>
                   <SelectContent>
                     {professions.map((profession) => (
-                      <SelectItem key={profession} value={profession.toLowerCase()}>
+                      <SelectItem
+                        key={profession}
+                        value={profession.toLowerCase()}
+                      >
                         {profession}
                       </SelectItem>
                     ))}
@@ -77,7 +100,9 @@ const [professionals, setProfessionals] = useState<ProfessionalCardProps[]>([]);
                 <Button variant="outline" size="icon">
                   <Filter className="h-4 w-4" />
                 </Button>
-                <Button className="bg-[#9A3B72] hover:bg-[#7A2D5A]">Buscar</Button>
+                <Button className="bg-[#9A3B72] hover:bg-[#7A2D5A]">
+                  Buscar
+                </Button>
               </div>
             </div>
 
@@ -139,21 +164,29 @@ const [professionals, setProfessionals] = useState<ProfessionalCardProps[]>([]);
         </div>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {professionals.map((professional) => (
-          <ProfessionalCard
-            key={professional.id}
-            id={professional.id}
-            name={professional.name}
-            profession={professional.profession}
-            description={professional.description}
-            location={`${professional?.address.city}, ${professional?.address.state}` || 'Local não informado'}
-            imageUrl={professional.imageUrl}
-            featured={professional.featured}
-            verified={professional.verified}
-          />
-        ))}
-      </div>
+      {professionals.length > 0 ? (
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {professionals.map((professional) => (
+            <ProfessionalCard
+              key={professional.id}
+              id={professional.id}
+              name={professional.name}
+              profession={professional.profession}
+              description={professional.description}
+              location={
+                professional?.address?.city && professional?.address?.state
+                  ? `${professional.address.city}, ${professional.address.state}`
+                  : "Local não informado"
+              }
+              imageUrl={professional.imageUrl}
+              featured={professional.featured}
+              verified={professional.verified}
+            />
+          ))}
+        </div>
+      ) : (
+        <FallbackMessage message="Não contém profissionais indicados cadastrados." />
+      )}
 
       {/* <div className="flex justify-center mt-4">
         <Button variant="outline">
@@ -161,5 +194,5 @@ const [professionals, setProfessionals] = useState<ProfessionalCardProps[]>([]);
         </Button>
       </div> */}
     </div>
-  )
+  );
 }

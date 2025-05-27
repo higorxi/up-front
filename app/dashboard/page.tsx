@@ -41,7 +41,7 @@ export default function DashboardPage() {
                     <span className="text-[#F9B000]">★</span> Acesso a eventos exclusivos
                   </li>
                   <li className="flex items-center gap-1">
-                    <span className="text-[#F9B000]">★</span> Descontos de 10% em lojas parceiras
+                    <span className="text-[#F9B000]">★</span> Descontos de 10% em fornecedores parceiros
                   </li>
                   <li className="flex items-center gap-1">
                     <span className="text-[#F9B000]">★</span> Workshop gratuito mensal
@@ -79,7 +79,7 @@ export default function DashboardPage() {
 
         <Card>
           <CardHeader className="pb-2">
-            <CardDescription>Lojas parceiras</CardDescription>
+            <CardDescription>Fornecedores Parceiros</CardDescription>
             <CardTitle className="text-3xl">2</CardTitle>
           </CardHeader>
           <CardContent className="text-sm text-muted-foreground">3 novas</CardContent>
@@ -101,13 +101,13 @@ export default function DashboardPage() {
             value="para-voce"
             className="rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-[#9A3B72] data-[state=active]:bg-transparent"
           >
-            Para você
+            Para Você
           </TabsTrigger>
           <TabsTrigger
             value="lojas"
             className="rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-[#9A3B72] data-[state=active]:bg-transparent"
           >
-            Lojas parceiras
+            Fornecedores Parceiros
           </TabsTrigger>
           <TabsTrigger
             value="workshops"

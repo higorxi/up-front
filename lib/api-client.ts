@@ -106,6 +106,6 @@ class ApiClient {
 
 // Exporta uma instância configurada do cliente API
 // Substitua a URL base pela URL da sua API
-export const apiClient = new ApiClient(process.env.NEXT_PUBLIC_API_URL || "http://localhost:3002")
+export const apiClient = new ApiClient(process.env.NEXT_PUBLIC_API_URL || "http://localhost:3002/api")
 
 export default ApiClient

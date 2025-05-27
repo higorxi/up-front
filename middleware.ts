@@ -11,7 +11,7 @@ export async function middleware(request: NextRequest) {
   const isPublic = pathname === '/login' || PUBLIC_FILE.test(pathname);
 
   if (!token && !isPublic) {
-    return NextResponse.redirect(new URL('/login', request.url));
+    return NextResponse.redirect(new URL('http://localhost:3000/login', request.url));
   }
 
   if (token) {
@@ -20,14 +20,13 @@ export async function middleware(request: NextRequest) {
       const { payload } = await jwtVerify(token, secret);
 
       const role = payload.role as string;
-      console.log(pathname);
 
       // 🔒 Verifica se o usuário está acessando uma rota correspondente ao seu role
       if (
         (role === 'PROFESSIONAL' && pathname.startsWith('/enterprise')) ||
         (role === 'PARTNER' && pathname.startsWith('/dashboard'))
       ) {
-        return NextResponse.redirect(new URL('http://localhost:3001/login', request.url));
+        return NextResponse.redirect(new URL('http://localhost:3000/login', request.url));
       }
 
       return NextResponse.next();
@@ -36,7 +35,7 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL('/login?expired=true', request.url));
       }
 
-      return NextResponse.redirect(new URL('/login', request.url));
+      return NextResponse.redirect(new URL('http://localhost:3000/login', request.url));
     }
   }
 

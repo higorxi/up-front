@@ -29,7 +29,7 @@ export default function ProfilePage() {
         <Card className="w-full md:w-1/3">
           <CardHeader>
             <CardTitle>Seu Perfil</CardTitle>
-            <CardDescription>Informações visíveis para lojas parceiras</CardDescription>
+            <CardDescription>Informações visíveis para fornecedores parceiros</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col items-center gap-4">
             <Avatar className="h-24 w-24">

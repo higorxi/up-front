@@ -8,16 +8,17 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { fornecedoresParceirosService, FornecedorParceiro } from '@/services/fornecedores-parcerios-service';
+import FallbackMessage from '@/components/fallback-loading';
 
 export default function StoresPage() {
-const [partners, setPartners] = useState<PartnerSupplier[]>([]);
+const [partners, setPartners] = useState<FornecedorParceiro[]>([]);
 
   useEffect(() => {
     const fetchPartners = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/partner-supplier');
-        setPartners(response.data); // Supondo que a API retorna um array de partners
+        const data = await fornecedoresParceirosService.listarFornecedoresParceiros();
+        setPartners(data);
       } catch (error) {
         console.error('Erro ao buscar parceiros:', error);
       }
@@ -32,9 +33,9 @@ const [partners, setPartners] = useState<PartnerSupplier[]>([]);
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold tracking-tight">Lojas Parceiras</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Fornecedores Parceiros</h1>
         <p className="text-muted-foreground">
-          Explore todas as lojas parceiras do Clube de Negócios UP e aproveite descontos exclusivos.
+          Explore todas os fornecedores parceiros do Clube de Negócios UP e aproveite descontos exclusivos.
         </p>
       </div>
 
@@ -137,6 +138,7 @@ const [partners, setPartners] = useState<PartnerSupplier[]>([]);
         </div>
       </div>
 
+      {partners.length > 0 ? (
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {partners.map((partner) => (
           <StoreCard
@@ -153,6 +155,10 @@ const [partners, setPartners] = useState<PartnerSupplier[]>([]);
           />
         ))}
       </div>
+      ) : (
+        <FallbackMessage message="Não contém Lojas cadastradas." />
+      )}
+
 
       {/* <div className="flex justify-center mt-4">
         <Button variant="outline" className="bg-white">
