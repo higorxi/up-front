@@ -61,10 +61,8 @@ class ApiClient {
     }
 
     try {
-      console.log("URL final:", url)
-      console.log('requestOptions', requestOptions)
       const response = await fetch(url, requestOptions)
-      console.log('error', response)
+
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}))
         throw new Error(errorData.message || `Erro na requisição: ${response.status}`)
