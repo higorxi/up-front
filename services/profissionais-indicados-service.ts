@@ -1,10 +1,11 @@
+import { ProfessionalData } from "@/components/professional-card";
 import { apiClient } from "@/lib/api-client"
 
 class ProfissionaisIndicadosService {
   // Listar profissionais indicados
-  async listarProfissionaisIndicados(): Promise<ProfissionalIndicado[]> {
+  async listarProfissionaisIndicados(): Promise<ProfessionalData[]> {
     try {
-      const response = await apiClient.get<ProfissionalIndicado[]>('/listed-professionals');
+      const response = await apiClient.get<ProfessionalData[]>('/listed-professionals');
 
       return response
     } catch (error) {

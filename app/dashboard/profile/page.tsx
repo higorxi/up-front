@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { profissionaisService } from "@/services/profissionais-service"
 import Cookies from 'js-cookie';
+import Loading from "@/components/loading"
 
 export default function ProfilePage() {
   const [userCookie, setUserCookie] = useState<any>(null);
@@ -363,11 +364,7 @@ export default function ProfilePage() {
   };
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <div className="text-lg">Carregando...</div>
-      </div>
-    );
+    return <Loading text="Carregando seus dados"/>
   }
 
   if (!user) {
