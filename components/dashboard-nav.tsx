@@ -6,6 +6,9 @@ import { cn } from "@/lib/utils"
 import { Home, Store, Calendar, User, Settings, BookOpen, Gift, Users, ChevronRight } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useEffect, useState } from "react"
+import Cookies from 'js-cookie';
+
 
 interface NavItem {
   title: string
@@ -21,13 +24,26 @@ interface NavSection {
 
 interface DashboardNavProps {
   collapsed: boolean
-  userName?: string
-  userImage?: string
 }
 
-export function DashboardNav({ collapsed, userName = "João Silva", userImage }: DashboardNavProps) {
+export function DashboardNav({ collapsed }: DashboardNavProps) {
   const pathname = usePathname()
-
+  const [user, setUser] = useState<any>(null);
+  useEffect(() => {
+    const fetchUserLogged = () => {
+      try {
+        const userCookie = Cookies.get('user');
+        if (userCookie) {
+          setUser(JSON.parse(userCookie));
+        }
+      } catch (error) {
+        console.error('Erro ao buscar cookie do usuário:', error);
+      }
+    };
+  
+    fetchUserLogged();
+  }, []);
+  
   // Organize navigation items by sections
   const navSections: NavSection[] = [
     {
@@ -101,12 +117,12 @@ export function DashboardNav({ collapsed, userName = "João Silva", userImage }:
           <TooltipTrigger asChild>
             <Link href="/dashboard/profile" className="flex items-center justify-center">
               <Avatar className="h-9 w-9 border-2 border-[#4A1F3D]">
-                <AvatarImage src={userImage || "/placeholder.svg"} alt={userName} />
-                <AvatarFallback className="bg-[#4A1F3D] text-white">{userName.charAt(0)}</AvatarFallback>
+                {/*<AvatarImage src={user?.professional?.profileImage || '/placeholder.svg?height=32&width=32'} alt="Avatar" />*/}
+                <AvatarFallback className="bg-[#F9B000] text-[#3A0F2D] font-bold">{user?.professional?.name.charAt(0)}</AvatarFallback>
               </Avatar>
             </Link>
           </TooltipTrigger>
-          <TooltipContent side="right">{userName}</TooltipContent>
+          <TooltipContent side="right">{user?.professional?.name}</TooltipContent>
         </Tooltip>
       )
     }
@@ -117,11 +133,11 @@ export function DashboardNav({ collapsed, userName = "João Silva", userImage }:
         className="flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors hover:bg-[#4A1F3D] hover:text-white text-gray-300"
       >
         <Avatar className="h-8 w-8 border-2 border-[#4A1F3D]">
-          <AvatarImage src={userImage || "/placeholder.svg"} alt={userName} />
-          <AvatarFallback className="bg-[#4A1F3D] text-white">{userName.charAt(0)}</AvatarFallback>
+          {/*<AvatarImage src={user?.professional?.profileImage || '/placeholder.svg?height=32&width=32'} alt="Avatar" />*/}
+          <AvatarFallback className="bg-[#F9B000] text-[#3A0F2D] font-bold">{user?.professional?.name.charAt(0)}</AvatarFallback>
         </Avatar>
         <div className="flex flex-col">
-          <span className="font-medium">{userName}</span>
+          <span className="font-medium">{user?.professional?.name}</span>
           <span className="text-xs text-gray-400">Ver perfil</span>
         </div>
         <ChevronRight className="ml-auto h-4 w-4" />

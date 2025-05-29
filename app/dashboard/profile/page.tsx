@@ -50,6 +50,69 @@ export default function ProfilePage() {
   const [originalFormData, setOriginalFormData] = useState({});
   const [originalAddressData, setOriginalAddressData] = useState({});
 
+  // Função para atualizar o cookie com os novos dados
+  const updateUserCookie = (updatedData: any) => {
+    try {
+      const currentCookie = Cookies.get('user');
+      if (currentCookie) {
+        const parsedCookie = JSON.parse(currentCookie);
+        
+        // Atualizar os dados do profissional no cookie
+        const updatedCookie = {
+          ...parsedCookie,
+          professional: {
+            ...parsedCookie.professional,
+            ...updatedData,
+            // Se houver dados de endereço, mesclar com o endereço existente
+            ...(updatedData.address && {
+              address: {
+                ...parsedCookie.professional.address,
+                ...updatedData.address
+              }
+            }),
+            // Se houver dados de usuário, mesclar com o usuário existente
+            ...(updatedData.user && {
+              user: {
+                ...parsedCookie.professional.user,
+                ...updatedData.user
+              }
+            })
+          }
+        };
+        
+        // Salvar o cookie atualizado
+        Cookies.set('user', JSON.stringify(updatedCookie), { expires: 7 });
+        
+        // Atualizar o estado local
+        setUserCookie(updatedCookie);
+        
+        // Atualizar também o estado do usuário
+        setUser(prev => ({
+          ...prev,
+          ...updatedData,
+          // Mesclar endereço se existir
+          ...(updatedData.address && {
+            address: {
+              ...prev.address,
+              ...updatedData.address
+            }
+          }),
+          // Mesclar dados do usuário se existir
+          ...(updatedData.user && {
+            user: {
+              ...prev.user,
+              ...updatedData.user
+            }
+          })
+        }));
+
+        window.location.href = 'http://localhost:3001/dashboard/profile'
+      }
+    } catch (error) {
+      console.error('Erro ao atualizar cookie:', error);
+    }
+  };
+
   useEffect(() => {
     const fetchUserLogged = () => {
       try {
@@ -180,8 +243,10 @@ export default function ProfilePage() {
       if (changedFields.document) updateData.document = changedFields.document;
       if (changedFields.email) updateData.user = { email: changedFields.email };
       
-      
       await profissionaisService.atualizarProfissional(userCookie.professional.id, updateData);
+
+      // Atualizar cookie após salvar com sucesso
+      updateUserCookie(updateData);
 
       setOriginalFormData(prev => ({ ...prev, ...personalFields }));
       
@@ -223,6 +288,9 @@ export default function ProfilePage() {
       
       await profissionaisService.atualizarProfissional(userCookie.professional.id, changedFields);
       
+      // Atualizar cookie após salvar com sucesso
+      updateUserCookie(changedFields);
+      
       // Atualizar dados originais
       setOriginalFormData(prev => ({ ...prev, ...professionalFields }));
       
@@ -244,9 +312,14 @@ export default function ProfilePage() {
       
       console.log('Salvando endereço:', changedFields);
       
-      await profissionaisService.atualizarProfissional(userCookie.professional.id, {
+      const updateData = {
         address: changedFields
-      });
+      };
+      
+      await profissionaisService.atualizarProfissional(userCookie.professional.id, updateData);
+      
+      // Atualizar cookie após salvar com sucesso
+      updateUserCookie(updateData);
       
       // Atualizar dados originais
       setOriginalAddressData(addressData);
